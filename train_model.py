@@ -5,14 +5,14 @@ from beyondml import tflow
 import os
 import datasets
 
-DEFAULT_BATCH_SIZE = 16
+DEFAULT_BATCH_SIZE = 256
 DEFAULT_IMAGE_SIZE = (128, 128, 3)
 DEFAULT_SCALING = 1./255
-DEFAULT_TEXT_LENGTH = 256
-DEFAULT_VOCAB_SIZE = 20000
-DEFAULT_EMBED_DIM = 256
+DEFAULT_TEXT_LENGTH = 512
+DEFAULT_VOCAB_SIZE = 30000
+DEFAULT_EMBED_DIM = 512
 DEFAULT_NUM_HEADS = 8
-DEFAULT_FF_DIM = 256
+DEFAULT_FF_DIM = 512
 DEFAULT_DROPOUT = 0.1
 
 def data_generator(
@@ -88,8 +88,8 @@ def build_model(
     cifar10_sel = tflow.layers.SelectorLayer(1)(conv_x)
     utkface_flatten = tf.keras.layers.Flatten()(utkface_sel)
     cifar10_flatten = tf.keras.layers.Flatten()(cifar10_sel)
-    utkface_reshape = tflow.layers.MaskedDense(32, activation = 'relu')(utkface_flatten)
-    cifar10_reshape = tflow.layers.MaskedDense(32, activation = 'relu')(cifar10_flatten)
+    utkface_reshape = tflow.layers.MaskedDense(128, activation = 'relu')(utkface_flatten)
+    cifar10_reshape = tflow.layers.MaskedDense(128, activation = 'relu')(cifar10_flatten)
 
     token_input = tf.keras.layers.Input(text_length)
     pos_input = tf.keras.layers.Input(text_length)
@@ -103,7 +103,7 @@ def build_model(
     text_x = tf.keras.layers.Dropout(dropout)(text_x)
     text_x = tf.keras.layers.Dense(ff_dim, activation = 'relu')(text_x)
     text_x = tf.keras.layers.Dropout(dropout)(text_x)
-    text_reshape = tflow.layers.MaskedDense(32, activation = 'relu')(text_x)
+    text_reshape = tflow.layers.MaskedDense(128, activation = 'relu')(text_x)
 
     x = tflow.layers.MultiMaskedDense(128, activation = 'relu')(
         [
