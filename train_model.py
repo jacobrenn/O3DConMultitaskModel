@@ -27,7 +27,7 @@ def data_generator(
     files = os.listdir(utkface_dir)
     np.random.shuffle(files)
 
-    cifar10_images = tf.image.resize(cifar10_images, image_size)
+    cifar10_images = tf.image.resize(cifar10_images, (image_size[0], image_size[1]))
     cifar10_images = cifar10_images*scaling
 
     cutoffs = list(range(10, 100, 10))
@@ -47,7 +47,7 @@ def data_generator(
                 utkface_idx = 0
             img = tf.keras.preprocessing.image.load_img(
                 os.path.join(utkface_dir, files[utkface_idx]),
-                target_size = image_size
+                target_size = (image_size[0], image_size[1])
             )
             utkface_img = np.array(img)*scaling
             age = int(files[utkface_idx].split('_')[0])
