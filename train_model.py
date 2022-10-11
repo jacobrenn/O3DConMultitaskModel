@@ -151,7 +151,7 @@ def build_model(
 @click.option('--text-length', '-t', type = int, default = DEFAULT_TEXT_LENGTH)
 @click.option('--vocab-size', '-v', type = int, default = DEFAULT_VOCAB_SIZE)
 @click.option('--embed-dim', '-e', type = int, default = DEFAULT_EMBED_DIM)
-@click.option('--num-heads', '-h', type = int, defaul = DEFAULT_NUM_HEADS)
+@click.option('--num-heads', '-h', type = int, default = DEFAULT_NUM_HEADS)
 @click.option('--ff-dim', '-f', type = int, default = DEFAULT_FF_DIM)
 @click.option('--limit', '-l', type = int, default = None)
 def main(
