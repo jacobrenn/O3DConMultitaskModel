@@ -19,6 +19,9 @@ def data_generator(
         utkface_dir,
         cifar10_images,
         cifar10_labels,
+        text_sequences,
+        text_indices,
+        text_labels,
         batch_size = DEFAULT_BATCH_SIZE,
         image_size = DEFAULT_IMAGE_SIZE,
         scaling = DEFAULT_SCALING,
@@ -34,12 +37,17 @@ def data_generator(
 
     utkface_idx = 0
     cifar10_idx = 0
+    sequence_idx = 0
 
     while True:
         utkface_batch = []
         cifar10_batch = []
+        sequences_batch = []
+        indices_batch = []
+
         ages = []
         cifar10_batch_labels = []
+        sequence_labels = []
 
         for _ in range(batch_size):
             if utkface_idx >= len(files):
@@ -60,10 +68,16 @@ def data_generator(
             cifar10_batch.append(cifar10_images[cifar10_idx])
             cifar10_batch_labels.append(cifar10_labels[cifar10_idx])
 
+            if sequence_idx >= text_sequences.shape[0]:
+                sequence_idx = 0
+            sequences_batch.append(text_sequences[sequence_idx])
+            indices_batch.append(text_indices[sequence_idx])
+            sequence_labels.append(text_labels[sequence_idx])
+
             utkface_idx += 1
             cifar10_idx += 1
 
-        yield ([np.asarray(utkface_batch), np.asarray(cifar10_batch), np.zeros((batch_size, text_length)), np.zeros((batch_size, text_length))], [np.asarray(ages), np.asarray(cifar10_batch_labels), np.zeros(batch_size)])
+        yield ([np.asarray(utkface_batch), np.asarray(cifar10_batch), np.asarray(sequences_batch), np.asarray(indices_batch)], [np.asarray(ages), np.asarray(cifar10_batch_labels), np.zeros(batch_size)])
 
 def build_model(
         text_length = DEFAULT_TEXT_LENGTH,
@@ -176,8 +190,8 @@ def main(
     test_sequences = tf.keras.preprocessing.sequence.pad_sequences(test_sequences, text_length)
     test_positions = np.asarray([np.arange(test_sequences.shape[1])] * test_sequences.shape[0])
 
-    train_generator = data_generator(train_dir, cifar10_x_train, cifar10_y_train, batch_size)
-    val_generator = data_generator(val_dir, cifar10_x_test, cifar10_y_test, batch_size)
+    train_generator = data_generator(train_dir, cifar10_x_train, cifar10_y_train, train_sequences, train_positions, train_labels, batch_size)
+    val_generator = data_generator(val_dir, cifar10_x_test, cifar10_y_test, test_sequences, test_positions, test_labels, batch_size)
 
     if not limit:
         train_steps = len(os.listdir(train_dir))//batch_size
