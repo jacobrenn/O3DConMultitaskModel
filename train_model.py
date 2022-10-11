@@ -180,7 +180,7 @@ def main(
     test_text = ag_news_data['test']['text']
     test_labels = np.asarray(ag_news_data['test']['label'])
 
-    tokenizer = tf.keras.preprocessing.text.Tokenizer()
+    tokenizer = tf.keras.preprocessing.text.Tokenizer(DEFAULT_NUM_WORDS)
     tokenizer.fit_on_texts(train_text)
     train_sequences = tokenizer.texts_to_sequences(train_text)
     train_sequences = tf.keras.preprocessing.sequence.pad_sequences(train_sequences, text_length)
