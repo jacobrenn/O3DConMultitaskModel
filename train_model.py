@@ -187,7 +187,7 @@ def main(
 
     if not limit:
         train_steps = len(os.listdir(train_dir))//batch_size
-        val_step = len(os.listdir(val_dir))//batch_size
+        val_steps = len(os.listdir(val_dir))//batch_size
     else:
         train_steps = limit
         val_steps = limit
