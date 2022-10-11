@@ -176,11 +176,11 @@ def main(
     tokenizer.fit_on_texts(train_text)
     train_sequences = tokenizer.texts_to_sequences(train_text)
     train_sequences = tf.keras.preprocessing.sequence.pad_sequences(train_sequences, text_length)
-    train_positions = np.asarray([np.arange(x_train.shape[1])] * train_sequences.shape[0])
+    train_positions = np.asarray([np.arange(train_sequences.shape[1])] * train_sequences.shape[0])
     
     test_sequences = tokenizer.texts_to_sequences(test_text)
     test_sequences = tf.keras.preprocessing.sequence.pad_sequences(test_sequences, text_length)
-    test_positions = np.asarray([np.arange(x_train.shape[1])] * test_sequences.shape[0])
+    test_positions = np.asarray([np.arange(test_sequences.shape[1])] * test_sequences.shape[0])
 
     train_generator = data_generator(train_dir, cifar10_x_train, cifar10_y_train, batch_size)
     val_generator = data_generator(val_dir, cifar10_x_test, cifar10_y_test, batch_size)
