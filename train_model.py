@@ -211,8 +211,7 @@ def main(
     model.compile(
         loss = 'sparse_categorical_crossentropy',
         metrics = 'accuracy',
-        optimizer = 'adam',
-        loss_weights = [1, 1, 0]
+        optimizer = 'adam'
     )
 
     callback = tf.keras.callbacks.EarlyStopping(
@@ -229,31 +228,6 @@ def main(
         steps_per_epoch = train_steps,
         validation_data = val_generator,
         validation_steps = val_steps,
-        callbacks = [callback]
-    )
-
-    model.compile(
-        loss = 'sparse_categorical_crossentropy',
-        metrics = 'accuracy',
-        optimizer = 'adam',
-        loss_weights = [0, 0, 1]
-    )
-
-    # Fit the model on text data for one epoch
-    model.fit(
-        [
-            np.zeros((train_sequences.shape[0], 256, 256, 3)),
-            np.zeros((train_sequences.shape[0], 256, 256, 3)),
-            train_sequences,
-            train_positions
-        ],
-        [
-            np.zeros(train_sequences.shape[0]),
-            np.zeros(train_sequences.shape[0]),
-            train_labels
-        ],
-        epochs = 1,
-        validation_split = 0.2,
         callbacks = [callback]
     )
 
