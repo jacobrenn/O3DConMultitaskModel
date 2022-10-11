@@ -224,12 +224,33 @@ def main(
     # Fit the model on image data for one epoch
     model.fit(
         train_generator,
-        epochs = 1,
+        epochs = 2,
         steps_per_epoch = train_steps,
         validation_data = val_generator,
         validation_steps = val_steps,
         callbacks = [callback]
     )
+
+    model = tflow.utils.mask_model(
+        model,
+        70,
+        method = 'magnitude'
+    )
+    model.compile(
+        loss = 'sparse_categorical_crossentropy',
+        metrics = 'accuracy',
+        optimizer = 'adam'
+    )
+
+    model.fit(
+        train_generator,
+        epochs = 100,
+        steps_per_epoch = train_steps,
+        validation_data = val_generator,
+        validation_steps = val_steps,
+        callbacks = [callback]
+    )
+    model.save('o3dcon_model.h5')
 
 if __name__ == '__main__':
     main()
