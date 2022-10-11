@@ -24,7 +24,7 @@ def data_generator(
         scaling = DEFAULT_SCALING,
         text_length = DEFAULT_TEXT_LENGTH
 ):
-    files = ls.listdir(utkface_dir)
+    files = os.listdir(utkface_dir)
     np.random.shuffle(files)
 
     cifar10_images = tf.image.resize(cifar10_images, image_size)
