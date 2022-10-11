@@ -6,7 +6,7 @@ import os
 import datasets
 
 DEFAULT_BATCH_SIZE = 16
-DEFAULT_IMAGE_SIZE = (128, 128)
+DEFAULT_IMAGE_SIZE = (128, 128, 3)
 DEFAULT_SCALING = 1./255
 DEFAULT_TEXT_LENGTH = 256
 DEFAULT_VOCAB_SIZE = 20000
@@ -73,8 +73,8 @@ def build_model(
         ff_dim = DEFAULT_FF_DIM,
         dropout = DEFAULT_DROPOUT
 ):
-    utkface_input = tf.keras.layers.Input((256, 256, 3))
-    cifar10_input = tf.keras.layers.Input((256, 256, 3))
+    utkface_input = tf.keras.layers.Input(DEFAULT_IMAGE_SIZE)
+    cifar10_input = tf.keras.layers.Input(DEFAULT_IMAGE_SIZE)
     conv_x = tflow.layers.MultiMaskedConv2D(16, activation = 'relu')([utkface_input, cifar10_input])
     conv_x = tflow.layers.MultiMaskedConv2D(16, activation = 'relu')(conv_x)
     conv_x = tflow.layers.MultiMaxPool2D()(conv_x)
