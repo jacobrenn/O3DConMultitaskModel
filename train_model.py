@@ -5,7 +5,7 @@ from beyondml import tflow
 import os
 import datasets
 
-DEFAULT_BATCH_SIZE = 256
+DEFAULT_BATCH_SIZE = 32
 DEFAULT_IMAGE_SIZE = (256, 256)
 DEFAULT_SCALING = 1./255
 DEFAULT_TEXT_LENGTH = 256
