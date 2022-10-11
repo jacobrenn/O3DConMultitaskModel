@@ -162,9 +162,9 @@ def main(
     (cifar10_x_train, cifar10_y_train), (cifar10_x_test, cifar10_y_test) = tf.keras.datasets.cifar10.load_data()
     ag_news_data = datasets.load_dataset('ag_news')
     train_text = ag_news_data['train']['text']
-    train_labels = np.asarray(ag_news_data['train']['label']).reshape(-1, 1)
+    train_labels = np.asarray(ag_news_data['train']['label'])
     test_text = ag_news_data['test']['text']
-    test_labels = np.asarray(ag_news_data['test']['label']).reshape(-1, 1)
+    test_labels = np.asarray(ag_news_data['test']['label'])
 
     tokenizer = tf.keras.preprocessing.text.Tokenizer()
     tokenizer.fit_on_texts(train_text)
