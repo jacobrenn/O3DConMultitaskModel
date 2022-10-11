@@ -94,8 +94,8 @@ def build_model(
     cifar10_sel = tflow.layers.SelectorLayer(1)(conv_x)
     utkface_flatten = tf.keras.layers.Flatten()(utkface_sel)
     cifar10_flatten = tf.keras.layers.Flatten()(cifar10_sel)
-    utkface_reshape = tflow.layers.MaskedDense(128, activation = 'relu')(utkface_flatten)
-    cifar10_reshape = tflow.layers.MaskedDense(128, activation = 'relu')(cifar10_flatten)
+    utkface_reshape = tflow.layers.MaskedDense(32, activation = 'relu')(utkface_flatten)
+    cifar10_reshape = tflow.layers.MaskedDense(32, activation = 'relu')(cifar10_flatten)
 
     token_input = tf.keras.layers.Input(text_length)
     pos_input = tf.keras.layers.Input(text_length)
@@ -109,7 +109,7 @@ def build_model(
     text_x = tf.keras.layers.Dropout(dropout)(text_x)
     text_x = tf.keras.layers.Dense(ff_dim, activation = 'relu')(text_x)
     text_x = tf.keras.layers.Dropout(dropout)(text_x)
-    text_reshape = tflow.layers.MaskedDense(128, activation = 'relu')(text_x)
+    text_reshape = tflow.layers.MaskedDense(32, activation = 'relu')(text_x)
 
     x = tflow.layers.MultiMaskedDense(128, activation = 'relu')(
         [
