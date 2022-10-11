@@ -249,5 +249,8 @@ def main(
         callbacks = [callback]
     )
 
+if __name__ == '__main__':
+    main()
+
     
     
