@@ -39,8 +39,6 @@ def data_generator(
         utkface_batch = []
         cifar10_batch = []
         ages = []
-        ethnicities = []
-        genders = []
         cifar10_batch_labels = []
 
         for _ in range(batch_size):
@@ -54,12 +52,8 @@ def data_generator(
             utkface_img = np.array(img)*scaling
             age = int(files[utkface_idx].split('_')[0])
             age_label = sum([age > cutoff for cutoff in cutoffs])
-            gender = int(files[utkface_idx].split('_')[1])
-            ethnicity = int(files[utkface_idx].split('_')[2])
             utkface_batch.append(utkface_img)
             ages.append(age_label)
-            genders.append(gender)
-            ethnicities.append(ethnicity)
 
             if cifar10_idx >= cifar10_images.shape[0]:
                 cifar10_idx = 0
@@ -69,7 +63,7 @@ def data_generator(
             utkface_idx += 1
             cifar10_idx += 1
 
-        yield ([np.asarray(utkface_batch), np.asarray(cifar10_batch), np.zeros((batch_size, text_length)), np.zeros((batch_size, text_length))], [np.asarray(ages), np.asarray(genders), np.asarray(ethnicities), np.asarray(cifar10_batch_labels), np.zeros(batch_size)])
+        yield ([np.asarray(utkface_batch), np.asarray(cifar10_batch), np.zeros((batch_size, text_length)), np.zeros((batch_size, text_length))], [np.asarray(ages), np.asarray(cifar10_batch_labels), np.zeros(batch_size)])
 
 def build_model(
         text_length = DEFAULT_TEXT_LENGTH,
