@@ -33,6 +33,11 @@ def data_generator(
     cifar10_images = tf.image.resize(cifar10_images, (image_size[0], image_size[1]))
     cifar10_images = cifar10_images*scaling
 
+    text_indexes = np.arange(text_labels.shape[0])
+    np.random.shuffle(text_indexes)
+    text_indices = text_indices[text_indexes]
+    text_labels = text_labels[text_indexes]
+
     cutoffs = list(range(10, 100, 10))
 
     utkface_idx = 0
