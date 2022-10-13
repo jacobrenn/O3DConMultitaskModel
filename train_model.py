@@ -179,6 +179,8 @@ def main(
         limit
 ):
     (cifar10_x_train, cifar10_y_train), (cifar10_x_test, cifar10_y_test) = tf.keras.datasets.cifar10.load_data()
+    cifar10_x_train = cifar10_x_train/255
+    cifar10_x_test = cifar10_x_test/255
     ag_news_data = datasets.load_dataset('ag_news')
     train_text = ag_news_data['train']['text']
     train_labels = np.asarray(ag_news_data['train']['label'])
