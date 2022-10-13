@@ -4,6 +4,7 @@ import click
 from beyondml import tflow
 import os
 import datasets
+from tqdm import tqdm
 
 DEFAULT_BATCH_SIZE = 256
 DEFAULT_IMAGE_SIZE = (128, 128, 3)
@@ -41,7 +42,7 @@ def load_data(
 
     utkface_images = []
     utkface_labels = []
-    for file in files:
+    for file in tqdm(files):
         img = tf.keras.preprocessing.image.load_img(
                 os.path.join(utkface_dir, file),
                 target_size = (image_size[0], image_size[1])
