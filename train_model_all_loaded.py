@@ -260,6 +260,20 @@ def main(
     print(train_text_sequences.shape)
     print(train_text_positions.shape)
 
+    print(train_utkface_images[0])
+    print('\n')
+    print(train_cifar_images[0])
+    print('\n')
+    print(train_text_sequences[0])
+    print('\n')
+    print(train_text_positions[0])
+    print('\n')
+    print(train_utkface_labels[:10])
+    print('\n')
+    print(train_cifar_labels[:10])
+    print('\n')
+    print(train_text_labels[:10])
+
     model = build_model(
         text_length = text_length,
         vocab_size = vocab_size,
