@@ -257,6 +257,11 @@ def main(
     (train_utkface_images, train_cifar_images, train_text_sequences, train_text_positions), (train_utkface_labels, train_cifar_labels, train_text_labels) = load_data(train_dir, cifar10_x_train, cifar10_y_train, train_sequences, train_positions, train_labels)
     (val_utkface_images, val_cifar_images, val_text_sequences, val_text_positions), (val_utkface_labels, val_cifar_labels, val_text_labels) = load_data(val_dir, cifar10_x_test, cifar10_y_test, test_sequences, test_positions, test_labels)
 
+    print(train_utkface_images.shape)
+    print(train_cifar_images.shape)
+    print(train_text_sequences.shape)
+    print(train_text_positions.shape)
+
     model = build_model(
         text_length = text_length,
         vocab_size = vocab_size,
