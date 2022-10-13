@@ -68,9 +68,7 @@ def load_data(
     text_positions = text_positions[:data_size]
     text_labels = text_labels[:data_size]
 
-    return (utkface_images, cifar10_images, text_sequences, text_labels), (utkface_labels, cifar10_labels, text_labels)
-
-
+    return (utkface_images, cifar10_images, text_sequences, text_positions), (utkface_labels, cifar10_labels, text_labels)
 
 def data_generator(
         utkface_dir,
