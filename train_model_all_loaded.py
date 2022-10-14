@@ -307,7 +307,8 @@ def main(
     model = tflow.utils.mask_model(
         model,
         70,
-        method = 'magnitude'
+        method = 'magnitude',
+        exclusive = False
     )
     model.compile(
         loss = 'sparse_categorical_crossentropy',
