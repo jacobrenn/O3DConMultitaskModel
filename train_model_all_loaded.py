@@ -323,6 +323,7 @@ def main(
         [train_utkface_labels, train_cifar_labels, train_text_labels],
         epochs = 100,
         batch_size = 256,
+        validation_split = 0.2,
         callbacks = [callback]
     )
     model.save('o3dcon_model.h5')
