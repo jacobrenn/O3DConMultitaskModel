@@ -6,6 +6,8 @@ import os
 import datasets
 from tqdm import tqdm
 
+from sklearn.metrics import classification_report
+
 DEFAULT_BATCH_SIZE = 256
 DEFAULT_IMAGE_SIZE = (128, 128, 3)
 DEFAULT_SCALING = 1./255
@@ -324,6 +326,23 @@ def main(
         callbacks = [callback]
     )
     model.save('o3dcon_model.h5')
+
+    model = tflow.utils.remove_layer_masks(model)
+    model.save('o3dcon_model_pruned.h5')
+
+    preds = model.predict([val_utkface_images, val_cifar_images, val_text_sequences, val_text_positions])
+    utkface_preds = preds[0].argmax(axis = 1)
+    cifar_preds = preds[1].argmax(axis = 1)
+    text_preds = preds[2].argmax(axis = 1)
+
+    print('UTKFace:')
+    print(classification_report(val_utkface_labels, utkface_preds))
+    print('\n\n')
+    print('CIFAR10:')
+    print(classification_report(val_cifar_labels, cifar_preds))
+    print('\n\n')
+    print('AGNews:')
+    print(classification_report(val_text_labels, text_preds))
 
 if __name__ == '__main__':
     main()
