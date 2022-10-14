@@ -299,7 +299,7 @@ def main(
     model.fit(
         [train_utkface_images, train_cifar_images, train_text_sequences, train_text_positions],
         [train_utkface_labels, train_cifar_labels, train_text_labels],
-        epochs = 2,
+        epochs = 4,
         batch_size = 256,
         callbacks = [callback]
     )
