@@ -321,7 +321,7 @@ def main(
     model.fit(
         [train_utkface_images, train_cifar_images, train_text_sequences, train_text_positions],
         [train_utkface_labels, train_cifar_labels, train_text_labels],
-        epochs = 100,
+        epochs = 20,
         batch_size = 256,
         validation_split = 0.2,
         callbacks = [callback]
