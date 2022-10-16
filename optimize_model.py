@@ -1,5 +1,6 @@
 import tensorflow as tf
 from beyondml import tflow
+import pickle
 import click
 
 @click.command()
@@ -64,8 +65,12 @@ def main(fn):
             text_out
         ]
     )
+    new_model.layers[10].set_weights(model.layers[10].get_weights())
+    new_model.layers[12].set_weights(model.layers[12].get_weights())
 
     new_model.summary()
+    with open('optimized_model.pkl', 'wb') as f:
+        pickle.dump(new_model, f)
 
 if __name__ == '__main__':
     main()
